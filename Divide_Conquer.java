@@ -18,12 +18,41 @@ public class Divide_Conquer{
         for( int i=0; i<y.length; i++){
             System.out.print(y[i] + " ");
         }
+
+        int arr[] = {1,22, 333, 4, 1, 2};
+        System.out.print(majority_Element(arr, 0, arr.length-1));
+
         
     }
 
 
 
-    
+    static int majority_Element(int arr[], int si, int ei){  // pending 
+        if( si == ei){
+            int x = arr[si];
+            return x;
+        }
+
+        int mid = (si+ei)/2;
+        int left = majority_Element(arr, si, mid);
+        int right = majority_Element(arr, mid+1, ei);
+
+        int leftCount = count(arr, left, si, ei);
+        int rightCounr = count(arr, right, si, ei);
+
+         return leftCount > rightCounr ? left : right;
+    }
+
+    static int count(int arr[], int left, int si, int ei){
+        
+        int c=0;
+        for(int i=si; i<=ei; i++){
+            if(arr[i] == left){
+                c++;
+            }
+        }
+        return c;
+    }
 
 
     static String[] sortString(String str[], int startIndex, int endIndex){
