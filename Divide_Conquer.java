@@ -18,10 +18,19 @@ public class Divide_Conquer{
         for( int i=0; i<y.length; i++){
             System.out.print(y[i] + " ");
         }
+        System.out.println();
 
-        int arr[] = {1,22, 333, 4, 1, 2};
-        System.out.print(majority_Element(arr, 0, arr.length-1));
+        // int arr[] = {3,2,2,3};
+        // System.out.print(majority_Element(arr, 0, arr.length-1));
 
+
+
+        int arr[] = {5,4,3,2,1};
+        int si=0;
+        int ei=arr.length-1;
+        fun(arr,si,ei);
+        printarr(arr);
+        
         
     }
 
@@ -29,16 +38,21 @@ public class Divide_Conquer{
 
     static int majority_Element(int arr[], int si, int ei){  // pending 
         if( si == ei){
-            int x = arr[si];
-            return x;
+            return arr[si];
         }
 
         int mid = (si+ei)/2;
         int left = majority_Element(arr, si, mid);
         int right = majority_Element(arr, mid+1, ei);
 
+        if(left == right){
+            return left;
+        }
+
         int leftCount = count(arr, left, si, ei);
         int rightCounr = count(arr, right, si, ei);
+
+
 
          return leftCount > rightCounr ? left : right;
     }
@@ -179,4 +193,67 @@ public class Divide_Conquer{
             System.out.print(arr[i]);
         }
     }
+
+    
+
+    // inversion count
+    static void fun(int arr[], int si, int ei){
+        if( si == ei ){
+            return;
+        }
+        
+        int mid= (si+ei)/2;
+        fun(arr, si, mid);
+        fun(arr, mid+1, ei);
+        
+        count(arr, si, mid, ei);
+    }
+    
+    static void countArr(int arr[], int si, int mid, int ei){
+        int temp[] = new int[ei-si+1];
+        int k=0;
+        int i=si;
+        int j= mid+1;
+        int count=0;
+        
+        while(i<=mid && j<=ei){
+           
+            if(arr[i] < arr[j]){
+                temp[k++] = arr[i++];
+            }
+            else{
+                temp[k++] = arr[j++];
+                count++;
+            }
+            
+        }
+        
+        while(i<=mid){
+            temp[k++] = arr[i++];
+        }
+        
+        while(j<=ei){
+            temp[k++]=arr[j++];
+            
+        }
+        
+        
+        for( k=0, i=si; k<temp.length; k++, i++){
+            arr[i] = temp[k];
+        }
+        System.out.println();
+        
+        
+    }
+    
+    static void printarr(int arr[]){
+        for(int i=0; i<arr.length; i++){
+            System.out.print(arr[i]);
+        }
+        System.out.println();
+    }
+    
+
+
+
 }
